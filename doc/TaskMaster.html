@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Class: TaskMaster</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (T)</a> &raquo; 
+    
+    
+    <span class="title">TaskMaster</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Class: TaskMaster 
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">TaskMaster</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/task_master.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+master your tasks!
+</p>
+<pre class="code">
+   <span class='TaskMaster constant id'>TaskMaster</span><span class='dot token'>.</span><span class='cookbook identifier id'>cookbook</span> <span class='do do kw'>do</span>
+     <span class='task identifier id'>task</span> <span class='symbol val'>:hi</span><span class='comma token'>,</span> <span class='symbol val'>:wave</span> <span class='do do kw'>do</span>
+       <span class='puts identifier id'>puts</span> <span class='string val'>'say hi'</span>
+     <span class='end end kw'>end</span>
+     <span class='task identifier id'>task</span> <span class='symbol val'>:wave</span> <span class='do do kw'>do</span>
+       <span class='puts identifier id'>puts</span> <span class='string val'>'waves'</span>
+     <span class='end end kw'>end</span>
+   <span class='end end kw'>end</span>
+   
+   <span class='TaskMaster constant id'>TaskMaster</span><span class='dot token'>.</span><span class='run identifier id'>run</span><span class='lparen token'>(</span><span class='symbol val'>:hi</span><span class='rparen token'>)</span>
+</pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="TaskMaster/CircularDependency.html" title="TaskMaster::CircularDependency (class)">CircularDependency</a>, <a href="TaskMaster/Task.html" title="TaskMaster::Task (class)">Task</a>, <a href="TaskMaster/UnknownTask.html" title="TaskMaster::UnknownTask (class)">UnknownTask</a>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="defined_tasks-classvariable" class="">@@defined_tasks =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+all tasks in the cookbook
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+</pre></dd>
+      
+        <dt id="completed_tasks-classvariable" class="">@@completed_tasks =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+all tasks that have already been executed, within a top_level_task
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+</pre></dd>
+      
+        <dt id="run_queue-classvariable" class="">@@run_queue =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+current list of tasks, used to (mostly) prevent circular dependency
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+</pre></dd>
+      
+        <dt id="indent-classvariable" class="">@@indent =
+          <div class="docstring">
+  <div class="discussion">
+    <p>
+indent level
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div>
+        </dt>
+        <dd><pre class="code"><span class='Array constant id'>Array</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+
+  
+    <h2>Class Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cookbook-class_method" title="cookbook (class method)">+ (Object) <strong>cookbook</strong>(&amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+accepts a block of code that defines tasks.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#log-class_method" title="log (class method)">+ (Object) <strong>log</strong>(str) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+outputs to the screen and a file.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-class_method" title="run (class method)">+ (Object) <strong>run</strong>(*args) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+used to call one or more top_level_tasks.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run_task-class_method" title="run_task (class method)">+ (Object) <strong>run_task</strong>(task, task_type = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+recursive method that evaluates dependencies, updates variables and calls
+task&#8217;s method.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#task-class_method" title="task (class method)">+ (Object) <strong>task</strong>(name, *dependencies, &amp;block) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+used to create methods / define tasks parsed from a cookbook block.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#task_from_name-class_method" title="task_from_name (class method)">+ (Object) <strong>task_from_name</strong>(task_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+returns a task with name attribute.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="cookbook-class_method">
+  
+    + (<tt>Object</tt>) <strong>cookbook</strong>(&amp;block) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+accepts a block of code that defines tasks
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/task_master.rb', line 97</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='cookbook identifier id'>cookbook</span><span class='lparen token'>(</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span> <span class='rparen token'>)</span>
+  <span class='instance_eval identifier id'>instance_eval</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="log-class_method">
+  
+    + (<tt>Object</tt>) <strong>log</strong>(str) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+outputs to the screen and a file
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/task_master.rb', line 113</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='log identifier id'>log</span><span class='lparen token'>(</span><span class='str identifier id'>str</span><span class='rparen token'>)</span>
+  <span class='@@log ivar id'>@@log</span> <span class='lshft op'>&lt;&lt;</span> <span class='@@indent ivar id'>@@indent</span><span class='dot token'>.</span><span class='join identifier id'>join</span> <span class='plus op'>+</span> <span class='string val'>'** '</span> <span class='plus op'>+</span> <span class='str identifier id'>str</span>
+  <span class='puts identifier id'>puts</span> <span class='@@indent ivar id'>@@indent</span><span class='dot token'>.</span><span class='join identifier id'>join</span> <span class='plus op'>+</span> <span class='string val'>'** '</span> <span class='plus op'>+</span> <span class='str identifier id'>str</span>
+  <span class='@@log ivar id'>@@log</span><span class='dot token'>.</span><span class='flush identifier id'>flush</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="run-class_method">
+  
+    + (<tt>Object</tt>) <strong>run</strong>(*args) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+used to call one or more top_level_tasks
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/task_master.rb', line 32</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='run identifier id'>run</span><span class='lparen token'>(</span><span class='mult op'>*</span><span class='args identifier id'>args</span><span class='rparen token'>)</span>
+  <span class='puts identifier id'>puts</span> <span class='dstring node'>&quot;\nTaskMaster.run was called with: #{args.join(' ')}\n===================================&quot;</span>
+
+  <span class='comment val'># log file. overritten each time TaskMaster.run() is called</span>
+  <span class='@@log ivar id'>@@log</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='string val'>'taskmaster_log.txt'</span><span class='comma token'>,</span> <span class='string val'>'w+'</span><span class='rparen token'>)</span>
+
+  <span class='comment val'># each arg to run() is a top level task</span>
+  <span class='top_level_task_names identifier id'>top_level_task_names</span> <span class='assign token'>=</span> <span class='args identifier id'>args</span><span class='dot token'>.</span><span class='to_a identifier id'>to_a</span><span class='dot token'>.</span><span class='flatten identifier id'>flatten</span>
+
+  <span class='comment val'># store all tasks, spanning top_level_tasks</span>
+  <span class='all_completed_tasks identifier id'>all_completed_tasks</span> <span class='assign token'>=</span> <span class='Array constant id'>Array</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+
+  <span class='top_level_task_names identifier id'>top_level_task_names</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='task_name identifier id'>task_name</span><span class='bitor op'>|</span>
+    <span class='task identifier id'>task</span> <span class='assign token'>=</span> <span class='task_from_name identifier id'>task_from_name</span><span class='lparen token'>(</span> <span class='task_name identifier id'>task_name</span> <span class='rparen token'>)</span>
+
+    <span class='run_task identifier id'>run_task</span><span class='lparen token'>(</span> <span class='task identifier id'>task</span> <span class='rparen token'>)</span>
+
+    <span class='comment val'># housekeeping</span>
+    <span class='all_completed_tasks identifier id'>all_completed_tasks</span> <span class='opasgn op'>+=</span> <span class='@@completed_tasks ivar id'>@@completed_tasks</span>
+    <span class='@@completed_tasks ivar id'>@@completed_tasks</span><span class='dot token'>.</span><span class='clear identifier id'>clear</span>
+    <span class='@@run_queue ivar id'>@@run_queue</span><span class='dot token'>.</span><span class='clear identifier id'>clear</span>
+  <span class='end end kw'>end</span>
+  <span class='all_completed_tasks identifier id'>all_completed_tasks</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="run_task-class_method">
+  
+    + (<tt>Object</tt>) <strong>run_task</strong>(task, task_type = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+recursive method that evaluates dependencies, updates variables and calls
+task&#8217;s method
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/task_master.rb', line 58</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='run_task identifier id'>run_task</span><span class='lparen token'>(</span> <span class='task identifier id'>task</span><span class='comma token'>,</span> <span class='task_type identifier id'>task_type</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span> <span class='rparen token'>)</span>
+  <span class='@@run_queue ivar id'>@@run_queue</span> <span class='lshft op'>&lt;&lt;</span> <span class='task identifier id'>task</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='unless unless_mod kw'>unless</span> <span class='task_type identifier id'>task_type</span> <span class='eq op'>==</span> <span class='string val'>'dependent '</span>
+
+  <span class='if if kw'>if</span> <span class='@@completed_tasks ivar id'>@@completed_tasks</span><span class='dot token'>.</span><span class='include? fid id'>include?</span> <span class='task identifier id'>task</span><span class='dot token'>.</span><span class='name identifier id'>name</span>
+    <span class='log identifier id'>log</span> <span class='dstring node'>&quot;skipping completed #{task.name.upcase}&quot;</span>
+  <span class='else else kw'>else</span>
+    <span class='log identifier id'>log</span> <span class='dstring node'>&quot;executing #{task_type}#{task.name.upcase}&quot;</span>
+  <span class='end end kw'>end</span>
+
+  <span class='if if kw'>if</span> <span class='task identifier id'>task</span><span class='dot token'>.</span><span class='dependencies identifier id'>dependencies</span>
+    <span class='task identifier id'>task</span><span class='dot token'>.</span><span class='dependencies identifier id'>dependencies</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='dep_task identifier id'>dep_task</span><span class='bitor op'>|</span>
+
+      <span class='if if kw'>if</span> <span class='@@run_queue ivar id'>@@run_queue</span><span class='dot token'>.</span><span class='include? fid id'>include?</span> <span class='dep_task identifier id'>dep_task</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+        <span class='raise identifier id'>raise</span> <span class='CircularDependency constant id'>CircularDependency</span><span class='comma token'>,</span> <span class='dstring node'>&quot;Task #{dep_task} contains a circular dependency on #{task.name}&quot;</span>
+      <span class='end end kw'>end</span>
+
+      <span class='@@indent ivar id'>@@indent</span><span class='dot token'>.</span><span class='push identifier id'>push</span> <span class='string val'>&quot;\t&quot;</span>
+      
+      <span class='comment val'># recurse</span>
+      <span class='run_task identifier id'>run_task</span><span class='lparen token'>(</span> <span class='task_from_name identifier id'>task_from_name</span><span class='lparen token'>(</span><span class='dep_task identifier id'>dep_task</span><span class='rparen token'>)</span><span class='comma token'>,</span> <span class='string val'>'dependent '</span> <span class='rparen token'>)</span>
+      <span class='@@indent ivar id'>@@indent</span><span class='dot token'>.</span><span class='pop identifier id'>pop</span>
+
+    <span class='end end kw'>end</span>
+  <span class='end end kw'>end</span>
+
+  <span class='comment val'># call the task's method</span>
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='task identifier id'>task</span><span class='dot token'>.</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_sym identifier id'>to_sym</span><span class='rparen token'>)</span>
+
+  <span class='@@completed_tasks ivar id'>@@completed_tasks</span> <span class='lshft op'>&lt;&lt;</span> <span class='task identifier id'>task</span><span class='dot token'>.</span><span class='name identifier id'>name</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="task-class_method">
+  
+    + (<tt>Object</tt>) <strong>task</strong>(name, *dependencies, &amp;block) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+used to create methods / define tasks parsed from a cookbook block
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt>RuntimeError</tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/task_master.rb', line 102</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='task identifier id'>task</span><span class='lparen token'>(</span> <span class='name identifier id'>name</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='dependencies identifier id'>dependencies</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span> <span class='rparen token'>)</span>
+  <span class='dependencies identifier id'>dependencies</span> <span class='opasgn op'>||=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='task identifier id'>task</span> <span class='assign token'>=</span> <span class='Task constant id'>Task</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='comma token'>,</span> <span class='dependencies identifier id'>dependencies</span><span class='rparen token'>)</span>
+  <span class='@@defined_tasks ivar id'>@@defined_tasks</span><span class='dot token'>.</span><span class='push identifier id'>push</span> <span class='task identifier id'>task</span>
+
+  <span class='self self kw'>self</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='symbol val'>:define_method</span><span class='comma token'>,</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_sym identifier id'>to_sym</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+
+  <span class='raise identifier id'>raise</span> <span class='RuntimeError constant id'>RuntimeError</span><span class='comma token'>,</span> <span class='dstring node'>&quot;Failed to define #{name} method&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span> <span class='name identifier id'>name</span><span class='dot token'>.</span><span class='to_sym identifier id'>to_sym</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="task_from_name-class_method">
+  
+    + (<tt>Object</tt>) <strong>task_from_name</strong>(task_name) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+returns a task with name attribute
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="TaskMaster/UnknownTask.html" title="TaskMaster::UnknownTask (class)">UnknownTask</a></tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+90
+91
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/task_master.rb', line 90</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='task_from_name identifier id'>task_from_name</span><span class='lparen token'>(</span><span class='task_name identifier id'>task_name</span><span class='rparen token'>)</span>
+  <span class='task identifier id'>task</span> <span class='assign token'>=</span> <span class='@@defined_tasks ivar id'>@@defined_tasks</span><span class='dot token'>.</span><span class='select identifier id'>select</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='t identifier id'>t</span><span class='bitor op'>|</span> <span class='t identifier id'>t</span><span class='dot token'>.</span><span class='name identifier id'>name</span> <span class='eq op'>==</span> <span class='task_name identifier id'>task_name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='first identifier id'>first</span>
+  <span class='raise identifier id'>raise</span> <span class='UnknownTask constant id'>UnknownTask</span><span class='comma token'>,</span> <span class='dstring node'>&quot;Unknown task: #{task_name}&quot;</span> <span class='if if_mod kw'>if</span> <span class='task identifier id'>task</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>
+  <span class='task identifier id'>task</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Wed Apr 14 07:19:07 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
