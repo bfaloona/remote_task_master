@@ -1,0 +1,75 @@
+
+<!-- saved from url=(0056)http://uwruby.bleything.net/advanced/homework/week3.html -->
+<HTML><HEAD><META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <TITLE>UWEO Ruby Certificate Program</TITLE>
+        <LINK rel="stylesheet" href="http://uwruby.bleything.net/styles.css">
+    </HEAD><BODY>
+        <DIV id="container">
+            <H1 id="week_three_homework">Week Three Homework</H1>
+
+<H3 id="part_one__remotetaskmaster">Part One - RemoteTaskMaster</H3>
+
+<P>You will hook your Taskmaster DSL from last week to DRb. The idea is to have a server into which you can load tasks and then execute them remotely.</P>
+
+<P>A few changes to the requirements:</P>
+
+<UL>
+<LI>If you built your DSL using a different vocabulary, please update it to use the terminology shown <A href="http://uwruby.bleything.net/advanced/homework/week2.html">in the assignment</A>. Note that <CODE>recipe</CODE> has been changed to <CODE>task</CODE>.</LI>
+
+<LI>At the end of the <CODE>Taskmaster.cookbook</CODE> run, your code should validate that all of the dependent tasks exist. If you encounter a missing dependency, raise an exception.</LI>
+</UL>
+
+<P>New requirements:</P>
+
+<UL>
+<LI>The server should keep the list of defined tasks for the life of the server… that is, if you disconnect and reconnect the client, the tasks should stay defined</LI>
+
+<LI>Add a method called <CODE>run_list_for</CODE> that takes a task name as an argument and returns the complete list of tasks, in order, to satisfy its dependencies and run the task</LI>
+</UL>
+
+<P>Notes:</P>
+
+<UL>
+<LI>Running a single task multiple times should execute the dependencies each time… that is, track the dependencies in the scope of a single <CODE>Taskmaster.run</CODE> call</LI>
+</UL>
+
+<H3 id="part_two__a_small_network_service">Part Two - A Small Network Service</H3>
+
+<P>You will build a very small, naive authentication service. Given a username and password, your service will report whether or not the user is authorized.</P>
+
+<P>You will build both the client and server using <CODE>TCPSocket</CODE>. The server should listen on port 24842. Connection flow looks like this:</P>
+
+<OL>
+<LI>The client connects to the server and sends the username</LI>
+
+<LI>The server responds with an unknown, opaque string. This string should change on every request.</LI>
+
+<LI>The client salts the password with the string, hashes the resulting string, and sends it to the server</LI>
+
+<LI>The server replies with either “AUTHORIZED” or “NOT AUTHORIZED” and disconnects</LI>
+</OL>
+
+<P>The server should read a password file (located in the same directory as the <CODE>server.rb</CODE> file called <CODE>passwd</CODE>) that looks like the example below. Note that this is valid YAML so you should use the YAML library to read it:</P>
+<DIV class="highlight"><PRE><SPAN class="l-Scalar-Plain">alice</SPAN><SPAN class="p-Indicator">:</SPAN> <SPAN class="l-Scalar-Plain">p4s$w0rd!</SPAN>
+<SPAN class="l-Scalar-Plain">bob</SPAN><SPAN class="p-Indicator">:</SPAN>   <SPAN class="l-Scalar-Plain">b0b1sgr3at</SPAN>
+<SPAN class="l-Scalar-Plain">carol</SPAN><SPAN class="p-Indicator">:</SPAN> <SPAN class="l-Scalar-Plain">abc123</SPAN>
+<SPAN class="l-Scalar-Plain">dave</SPAN><SPAN class="p-Indicator">:</SPAN>  <SPAN class="l-Scalar-Plain">Il1KeB33zzz</SPAN>
+</PRE>
+</DIV>
+<P><STRONG>Requirements</STRONG></P>
+
+<UL>
+<LI>You <STRONG><EM>must</EM></STRONG> write tests for this part of the assignment. Try to build it test-first</LI>
+
+<LI>The client should take the username and password as arguments on the command line: <CODE>./client.rb ben p4ssw0rd</CODE></LI>
+
+<LI>Nothing should be send in plaintext. You should use <CODE>Digest::MD5</CODE> to hash the salt + password in step 3 above.</LI>
+
+<LI>Both the client and server should log debugging information</LI>
+
+<LI>It is very important that you follow the protocol exactly. I will be testing your server with my client, and your client with my server to ensure correctness.</LI>
+</UL>
+        </DIV>
+    
+
+</BODY></HTML>
